@@ -31,7 +31,8 @@
 		"n8nNodesApiVersion": 1,
 		"strict": true,
 		"credentials": [
-			"dist/credentials/AnsibleAutomationPlatformApi.credentials.js"
+			"dist/credentials/AnsibleAutomationPlatformApi.credentials.js",
+			"dist/credentials/AnsibleAutomationPlatformTokenApi.credentials.js"
 		],
 		"nodes": [
 			"dist/nodes/AnsibleAutomationPlatform/AnsibleAutomationPlatform.node.js"
