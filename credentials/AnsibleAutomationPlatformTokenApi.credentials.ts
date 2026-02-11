@@ -11,7 +11,7 @@ export class AnsibleAutomationPlatformTokenApi implements ICredentialType {
     // Suppression de l'icon complexe pour simplifier si le fichier n'est pas présent
     icon: Icon = { light: 'file:../icons/github.svg', dark: 'file:../icons/github.dark.svg' };
 
-    documentationUrl = 'https://example.com/docs/auth';
+    documentationUrl = 'https://github.com/xuarig007/n8n_aap/blob/master/README.md';
 
     properties: INodeProperties[] = [
 		{
