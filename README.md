@@ -1,5 +1,7 @@
 # n8n-nodes-ansible-automation-platform
 
+<a href="https://www.loom.com/share/d3148f4da40440fc81863acecfd8c0e0" target="_blank">Vidéo</a>
+
 <img src="workflow_aap.png">
 
 # n8n-nodes-ansible-automation-platform
