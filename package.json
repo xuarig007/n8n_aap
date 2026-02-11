@@ -1,7 +1,7 @@
 {
-	"name": "n8n-nodes-nasapics",
+	"name": "n8n-nodes-ansible-automation-platform",
 	"version": "0.1.0",
-	"description": "n8n node to call NASA's APOD and Mars Rover Photo services.",
+	"description": "n8n node to call Ansible Automation Platform API.",
 	"license": "MIT",
 	"homepage": "",
 	"keywords": [
@@ -31,10 +31,10 @@
 		"n8nNodesApiVersion": 1,
 		"strict": true,
 		"credentials": [
-			"dist/credentials/NasaPicsApi.credentials.js"
+			"dist/credentials/AnsibleAutomationPlatformApi.credentials.js"
 		],
 		"nodes": [
-			"dist/nodes/NasaPics/NasaPics.node.js"
+			"dist/nodes/AnsibleAutomationPlatform/AnsibleAutomationPlatform.node.js"
 		]
 	},
 	"devDependencies": {
