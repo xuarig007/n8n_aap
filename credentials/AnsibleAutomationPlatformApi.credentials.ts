@@ -51,7 +51,7 @@ export class AnsibleAutomationPlatformApi implements ICredentialType {
     test: ICredentialTestRequest = {
         request: {
             // Remplace par l'URL de test réelle de ton API
-            baseURL: `$properties.domain`,
+            baseURL: '={{$credentials.domain}}',
             url: '/api/controller/v2',
             method: 'GET',
         },
