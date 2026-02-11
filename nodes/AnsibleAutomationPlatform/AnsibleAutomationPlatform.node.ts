@@ -135,11 +135,11 @@ export class AnsibleAutomationPlatform implements INodeType {
             },
             // Paramètre pour coller le JSON
             {
-                displayName: 'Extravars Au Format JSON',
+                displayName: 'Extra Variables (JSON Format)',
                 name: 'jsonBody',
                 type: 'json',
                 default: '{}',
-                description: 'Le JSON qui sera posté directement à l\'API',
+                description: 'The JSON that will be posted directly to the API',
                 displayOptions: {
                     show: {
                         resource: ['model'],
@@ -276,6 +276,7 @@ export class AnsibleAutomationPlatform implements INodeType {
 
                 returnData.push({
                     json: response,
+                    pairedItem: { item: 0 }
                 });
 
             } catch (error) {
@@ -356,6 +357,7 @@ export class AnsibleAutomationPlatform implements INodeType {
             
             returnData.push({
                 json: response,
+                pairedItem: { item: 0 }
             });
             
         }

@@ -33,7 +33,7 @@ export class AnsibleAutomationPlatformApi implements ICredentialType {
 			name: 'domain',
 			type: 'string',
 			default: '',
-			hint: 'AAP domain : example https://aap-aap.apps.cluster-gptcr-2.dynamic.redhatworkshops.io/',
+			hint: 'AAP domain',
 			required: true,
 		},
     ];
@@ -51,7 +51,7 @@ export class AnsibleAutomationPlatformApi implements ICredentialType {
     test: ICredentialTestRequest = {
         request: {
             // Remplace par l'URL de test réelle de ton API
-            baseURL: 'https://aap-aap.apps.cluster-gptcr-2.dynamic.redhatworkshops.io', 
+            baseURL: `$properties.domain`,
             url: '/api/controller/v2',
             method: 'GET',
         },
