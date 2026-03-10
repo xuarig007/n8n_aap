@@ -366,4 +366,4 @@ export class AnsibleAutomationPlatform implements INodeType {
 
     }
 
-}
+} 
