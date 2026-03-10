@@ -15,15 +15,15 @@ import {
 } from './GenericFunctions';
 
 export class AnsibleAutomationPlatform implements INodeType {
-	description: INodeTypeDescription = {
-		// Basic node details will go here
+    description: INodeTypeDescription = {
+        // Basic node details will go here
         displayName: 'AAP Redhat',
         name: 'ansibleAutomationPlatform',
         icon: 'file:AnsibleAutomationPlatform_logo.svg',
         group: ['transform'],
         version: 1,
         subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-        description: 'Make actions with AAP API',
+        description: 'Perform actions with the AAP API',
         defaults: {
             name: 'Ansible Automation Platform',
         },
@@ -35,46 +35,46 @@ export class AnsibleAutomationPlatform implements INodeType {
                 name: 'ansibleAutomationPlatformApi',
                 required: true,
                 displayOptions: {
-					show: {
-						authentication: ['basicAuth'],
-					},
-				},
+                    show: {
+                        authentication: ['basicAuth'],
+                    },
+                },
             },
             {
                 name: 'ansibleAutomationPlatformTokenApi',
                 required: true,
                 displayOptions: {
-					show: {
-						authentication: ['oAuth2'],
-					},
-				},
+                    show: {
+                        authentication: ['oAuth2'],
+                    },
+                },
             },
         ],
-        requestDefaults: {
-            baseURL: '',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-        },
-		properties: [
+
+
+
+
+
+
+
+        properties: [
             {
-				displayName: 'Authentication',
-				name: 'authentication',
-				type: 'options',
-				options: [
-					{
-						name: 'Basic Auth',
-						value: 'basicAuth',
-					},
-					{
-						name: 'OAuth2',
-						value: 'oAuth2',
-					},
-				],
-				default: 'oAuth2',
-				description: 'Authentication method to use',
-			},
+                displayName: 'Authentication',
+                name: 'authentication',
+                type: 'options',
+                options: [
+                    {
+                        name: 'Basic Auth',
+                        value: 'basicAuth',
+                    },
+                    {
+                        name: 'OAuth2',
+                        value: 'oAuth2',
+                    },
+                ],
+                default: 'oAuth2',
+                description: 'Authentication method to use',
+            },
             {
                 displayName: 'Resource',
                 name: 'resource',
@@ -101,7 +101,7 @@ export class AnsibleAutomationPlatform implements INodeType {
                 displayOptions: {
                     show: {
                         resource: [
-                            'model',
+                            'model'
                         ],
                     },
                 },
@@ -119,7 +119,7 @@ export class AnsibleAutomationPlatform implements INodeType {
                 displayName: 'Model Name or ID',
                 name: 'model', 
                 type: 'options',
-			    description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
+                description: 'Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>',
                 noDataExpression: true,
                 displayOptions: {
                     show: {
@@ -127,13 +127,13 @@ export class AnsibleAutomationPlatform implements INodeType {
                         operation: ['launch_model']
                     },
                 },
-                // On remplace les options statiques par la méthode dynamique
+                // Replace static options with dynamic method
                 typeOptions: {
                     loadOptionsMethod: 'getJobTemplates',
                 },
                 default: '',
             },
-            // Paramètre pour coller le JSON
+            // JSON input parameter
             {
                 displayName: 'Extra Variables (JSON Format)',
                 name: 'jsonBody',
@@ -156,7 +156,7 @@ export class AnsibleAutomationPlatform implements INodeType {
                 displayOptions: {
                     show: {
                         resource: [
-                            'job',
+                            'job'
                         ],
                     },
                 },
@@ -182,79 +182,79 @@ export class AnsibleAutomationPlatform implements INodeType {
                     },
                 }
             }
-
-    ]
-	};
+    
+       ]
+    };
 
     
-
+    
     methods = {
-    loadOptions: {
-        async getJobTemplates(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-
-            const returnData: INodePropertyOptions[] = [];
-            const credentials: ICredentialDataDecryptedObject = await getCredentialsAAP.call(this);
-            const domain = (credentials?.domain as string)?.replace(/\/$/, '');
-            const url = `${domain}/api/controller/v2/job_templates`;
-            try {
+        loadOptions: {
+            async getJobTemplates(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
                 
-                const options : IHttpRequestOptions = {
-                    method: 'GET',
-                    url: url,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                };
-                
-                const response = await this.helpers.httpRequestWithAuthentication.call(
-                    this, 
-                    getCredentialsAAPType.call(this), // Dynamically determine which credential type to use
-                    options,
-                );
+                const returnData: INodePropertyOptions[] = [];
+                const credentials: ICredentialDataDecryptedObject = await getCredentialsAAP.call(this);
+                const domain = (credentials?.domain as string)?.replace(/\/$/, '');
+                const url = `${domain}/api/controller/v2/job_templates`;
+                try {
 
-                // On boucle sur les résultats de AAP (généralement dans "results")
-                for (const template of response.results) {
-                    returnData.push({
-                        name: template.name,      // Ce qui sera affiché (ex: "RedHat Patching")
-                        value: template.id.toString(), // La valeur technique (ex: "47")
-                    });
+                    const options : IHttpRequestOptions = {
+                        method: 'GET',
+                        url: url,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                        },
+                    };
+                    
+                    const response = await this.helpers.httpRequestWithAuthentication.call(
+                        this, 
+                        getCredentialsAAPType.call(this), 
+                        options,
+                    );
+
+                    // Iterate through AAP results (usually under the "results" key)
+                    for (const template of response.results) {
+                        returnData.push({
+                            name: template.name,      // Display name (e.g., "RedHat Patching")
+                            value: template.id.toString(), // Technical value (e.g., "47")
+                        });
+                    }
+
+                } catch (error) {
+                    // Use NodeOperationError to provide better error context in n8n
+                    throw new NodeOperationError(
+                        this.getNode(), 
+                        error as Error,
+                        { message: `Error listing models for url: ${url} - ${error.message || 'An unknown error occurred'}` }
+                    );
                 }
-                
-            } catch (error) {
-                // On utilise NodeOperationError pour que n8n l'affiche correctement dans l'UI
-                throw new NodeOperationError(
-                    this.getNode(), 
-                    error as Error,
-                    { message: `Error listing models for url: ${url} - ${error.message || 'An unknown error occurred'}` }
-                );
-            }
 
-            return returnData;
+                return returnData;
+            },
         },
-    },
-};
-
+    };
 
     
-
+    
+    
     async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-
-		const returnData: INodeExecutionData[] = [];
+        
+        const returnData: INodeExecutionData[] = [];
         const credentials: ICredentialDataDecryptedObject = await getCredentialsAAP.call(this);
         const domain = (credentials?.domain as string)?.replace(/\/$/, '');
 
         if (!credentials) {
-            throw new NodeOperationError(this.getNode(), 'No credentials got returned!');
+            throw new NodeOperationError(this.getNode(), 'No credentials were returned!');
         }
         
         const resource = this.getNodeParameter('resource', 0);
-		const operation = this.getNodeParameter('operation', 0);
+        const operation = this.getNodeParameter('operation', 0);
 
         if (resource === 'model' && operation === 'launch_model') {
             const modelId = this.getNodeParameter('model', 0);
             const jsonBody = this.getNodeParameter('jsonBody', 0);
-            const url = `${domain}/api/controller/v2/job_templates/${modelId}/launch/`; // Remplace par l'endpoint de lancement de job réel de ton API
+            const url = `${domain}/api/controller/v2/job_templates/${modelId}/launch/`; 
 
             try {
 
@@ -270,7 +270,7 @@ export class AnsibleAutomationPlatform implements INodeType {
 
                 const response = await this.helpers.httpRequestWithAuthentication.call(
                     this, 
-                    getCredentialsAAPType.call(this), // For example: pipedriveApi
+                    getCredentialsAAPType.call(this), 
                     options,
                 );
 
@@ -280,7 +280,7 @@ export class AnsibleAutomationPlatform implements INodeType {
                 });
 
             } catch (error) {
-                // On utilise NodeOperationError pour que n8n l'affiche correctement dans l'UI
+                // Use NodeOperationError to provide better error context in n8n
                 throw new NodeOperationError(
                     this.getNode(), 
                     error as Error,
@@ -290,12 +290,12 @@ export class AnsibleAutomationPlatform implements INodeType {
         }
         if (resource === 'job' && operation === 'get_status') {
             const jobId = this.getNodeParameter('jobId', 0);
-            const urlJob = `${domain}/api/controller/v2/jobs/${jobId}`; // Remplace par l'endpoint de lancement de job réel de ton API
-            const urlStdout = `${domain}/api/controller/v2/jobs/${jobId}/stdout/?format=json`; // Remplace par l'endpoint de récupération de stdout réel de ton API
+            const urlJob = `${domain}/api/controller/v2/jobs/${jobId}`; 
+            const urlStdout = `${domain}/api/controller/v2/jobs/${jobId}/stdout/?format=json`; 
 
             const response = {
-                job: null,
-                stdout: null,
+                job: null as any,
+                stdout: null as any,
             };
 
 
@@ -318,7 +318,7 @@ export class AnsibleAutomationPlatform implements INodeType {
                 );
 
             } catch (error) {
-                // On utilise NodeOperationError pour que n8n l'affiche correctement dans l'UI
+                // Use NodeOperationError to provide better error context in n8n
                 throw new NodeOperationError(
                     this.getNode(), 
                     error as Error,
@@ -327,8 +327,8 @@ export class AnsibleAutomationPlatform implements INodeType {
             }
 
             try {
-                //on recupere la stdout au format json
-
+                // Retrieve stdout in JSON format
+                
                 const optionsStdout : IHttpRequestOptions = {
                     method: 'GET',
                     url: urlStdout,
@@ -343,9 +343,9 @@ export class AnsibleAutomationPlatform implements INodeType {
                     getCredentialsAAPType.call(this),
                     optionsStdout,
                 );
-                
+
             } catch (error) {
-                // On utilise NodeOperationError pour que n8n l'affiche correctement dans l'UI
+                // 
                 throw new NodeOperationError(
                     this.getNode(), 
                     error as Error,
@@ -353,17 +353,17 @@ export class AnsibleAutomationPlatform implements INodeType {
                 );
             }
 
-            //on renvoie un objet qui contient à la fois le status du job et sa stdout
+            // Return an object containing both the job status and its stdout
             
             returnData.push({
                 json: response,
                 pairedItem: { item: 0 }
             });
-            
+    
         }
 
         return [returnData];
 
     }
-   
+
 }

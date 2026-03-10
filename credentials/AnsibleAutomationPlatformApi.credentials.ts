@@ -3,39 +3,43 @@ import {
     ICredentialType,
     INodeProperties,
     ICredentialTestRequest,
-	Icon,
+    Icon,
 } from 'n8n-workflow';
 
 export class AnsibleAutomationPlatformApi implements ICredentialType {
     name = 'ansibleAutomationPlatformApi';
-    displayName = 'Ansible Automation Platform API'; // Harmonisé avec le nom de la classe
-    // Suppression de l'icon complexe pour simplifier si le fichier n'est pas présent
+    // Standardize with the class name
+    displayName = 'Ansible Automation Platform API'; 
+    
+    // Use simplified icons if the specific files are missing
     icon: Icon = { light: 'file:../icons/github.svg', dark: 'file:../icons/github.dark.svg' };
 
     documentationUrl = 'https://github.com/xuarig007/n8n_aap/blob/master/README.md';
 
     properties: INodeProperties[] = [
-		{
+        {
             displayName: 'Username',
-            name: 'username', // Doit correspondre à la clé dans authenticate
+            // Must match the key used in the authenticate property
+            name: 'username', 
             type: 'string',
             default: '',
         },
         {
             displayName: 'Password',
-            name: 'password', // Doit correspondre à la clé dans authenticate
+            // Must match the key used in the authenticate property
+            name: 'password', 
             type: 'string',
             typeOptions: { password: true },
             default: '',
         },
-		{
-			displayName: 'Domain',
-			name: 'domain',
-			type: 'string',
-			default: '',
-			hint: 'AAP domain',
-			required: true,
-		},
+        {
+            displayName: 'Domain',
+            name: 'domain',
+            type: 'string',
+            default: '',
+            hint: 'AAP domain',
+            required: true,
+        },
     ];
 
     authenticate: IAuthenticateGeneric = {
@@ -50,7 +54,7 @@ export class AnsibleAutomationPlatformApi implements ICredentialType {
 
     test: ICredentialTestRequest = {
         request: {
-            // Remplace par l'URL de test réelle de ton API
+            // Replace with the actual test URL of your API
             baseURL: '={{$credentials.domain}}',
             url: '/api/controller/v2',
             method: 'GET',

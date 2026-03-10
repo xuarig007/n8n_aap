@@ -1,45 +1,53 @@
 import {
+    IAuthenticateGeneric,
     ICredentialType,
     INodeProperties,
     ICredentialTestRequest,
-	Icon,
+    Icon,
 } from 'n8n-workflow';
 
 export class AnsibleAutomationPlatformTokenApi implements ICredentialType {
     name = 'ansibleAutomationPlatformTokenApi';
-    displayName = 'Ansible Automation Platform Token API'; // Harmonisé avec le nom de la classe
-    // Suppression de l'icon complexe pour simplifier si le fichier n'est pas présent
+    displayName = 'Ansible Automation Platform Token API';
     icon: Icon = { light: 'file:../icons/github.svg', dark: 'file:../icons/github.dark.svg' };
-
     documentationUrl = 'https://github.com/xuarig007/n8n_aap/blob/master/README.md';
 
+    // This is the missing piece the error was screaming about
+    authenticate: IAuthenticateGeneric = {
+        type: 'generic',
+        properties: {
+            headers: {
+                Authorization: '=Bearer {{$credentials.token}}',
+            },
+        },
+    };
+
     properties: INodeProperties[] = [
-		{
-            displayName: 'Token',
-            name: 'token', // Doit correspondre à la clé dans authenticate
+        {
+            displayName: 'Domain',
+            name: 'domain',
             type: 'string',
             default: '',
-			typeOptions: { password: true },
+            placeholder: 'https://aap.example.com',
+            hint: 'The base URL of your AAP instance',
+            required: true,
         },
         {
-			displayName: 'Domain',
-			name: 'domain',
-			type: 'string',
-			default: '',
-			hint: 'AAP domain',
-			required: true,
-		},
+            displayName: 'Token',
+            name: 'token',
+            type: 'string',
+            default: '',
+            typeOptions: { password: true },
+            required: true,
+        },
     ];
 
     test: ICredentialTestRequest = {
         request: {
-            // Remplace par l'URL de test réelle de ton API
+            // Using a template literal or the variable directly
             baseURL: '={{$credentials.domain}}', 
-            url: '/api/controller/v2',
+            url: '/api/v2/ping/', // A common ping endpoint for AAP/AWX
             method: 'GET',
-            headers: {
-                Authorization: 'Bearer {{$credentials.token}}',
-            }
         },
     };
 }
