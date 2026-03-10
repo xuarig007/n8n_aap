@@ -12,7 +12,7 @@ export class AnsibleAutomationPlatformApi implements ICredentialType {
     displayName = 'Ansible Automation Platform API'; 
     
     // Use simplified icons if the specific files are missing
-    icon: Icon = { light: 'file:../icons/github.svg', dark: 'file:../icons/github.dark.svg' };
+    icon: Icon = { light: 'file:../icons/redhat_aap.light.svg', dark: 'file:../icons/redhat_aap.dark.svg' };
 
     documentationUrl = 'https://github.com/xuarig007/n8n_aap/blob/master/README.md';
 

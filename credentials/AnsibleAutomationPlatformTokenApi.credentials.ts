@@ -9,7 +9,7 @@ import {
 export class AnsibleAutomationPlatformTokenApi implements ICredentialType {
     name = 'ansibleAutomationPlatformTokenApi';
     displayName = 'Ansible Automation Platform Token API';
-    icon: Icon = { light: 'file:../icons/github.svg', dark: 'file:../icons/github.dark.svg' };
+    icon: Icon = { light: 'file:../icons/redhat_aap.light.svg', dark: 'file:../icons/redhat_aap.dark.svg' };
     documentationUrl = 'https://github.com/xuarig007/n8n_aap/blob/master/README.md';
 
     // This is the missing piece the error was screaming about
