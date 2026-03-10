@@ -294,8 +294,8 @@ export class AnsibleAutomationPlatform implements INodeType {
             const urlStdout = `${domain}/api/controller/v2/jobs/${jobId}/stdout/?format=json`; 
 
             const response = {
-                job: null as any,
-                stdout: null as any,
+                job: null,
+                stdout: null,
             };
 
 
