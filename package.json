@@ -1,10 +1,10 @@
 {
 	"name": "n8n-nodes-ansible-automation-platform",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"overrides": {
-    	"change-case": "4.1.2",
+		"change-case": "4.1.2",
 		"isolated-vm": "^5.0.0"
-  	},
+	},
 	"description": "n8n node to call Ansible Automation Platform API.",
 	"license": "MIT",
 	"homepage": "",
